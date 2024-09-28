@@ -1,0 +1,2348 @@
+CREATE TABLE part 
+(
+  p_partkey     INTEGER NOT NULL,
+  p_name        VARCHAR(22) NOT NULL,
+  p_mfgr        VARCHAR(6),
+  p_category    VARCHAR(7) NOT NULL,
+  p_brand1      VARCHAR(9) NOT NULL,
+  p_color       VARCHAR(11) NOT NULL,
+  p_type        VARCHAR(25) NOT NULL,
+  p_size        INTEGER NOT NULL,
+  p_container   VARCHAR(10) NOT NULL
+);
+
+CREATE TABLE supplier 
+(
+  s_suppkey   INTEGER NOT NULL,
+  s_name      VARCHAR(25) NOT NULL,
+  s_address   VARCHAR(25) NOT NULL,
+  s_city      VARCHAR(10) NOT NULL,
+  s_nation    VARCHAR(15) NOT NULL,
+  s_region    VARCHAR(12) NOT NULL,
+  s_phone     VARCHAR(15) NOT NULL
+);
+
+CREATE TABLE customer 
+(
+  c_custkey      INTEGER NOT NULL,
+  c_name         VARCHAR(25) NOT NULL,
+  c_address      VARCHAR(25) NOT NULL,
+  c_city         VARCHAR(10) NOT NULL,
+  c_nation       VARCHAR(15) NOT NULL,
+  c_region       VARCHAR(12) NOT NULL,
+  c_phone        VARCHAR(15) NOT NULL,
+  c_mktsegment   VARCHAR(10) NOT NULL
+);
+
+CREATE TABLE dwdate 
+(
+  d_datekey            INTEGER NOT NULL,
+  d_date               VARCHAR(19) NOT NULL,
+  d_dayofweek          VARCHAR(10) NOT NULL,
+  d_month              VARCHAR(10) NOT NULL,
+  d_year               INTEGER NOT NULL,
+  d_yearmonthnum       INTEGER NOT NULL,
+  d_yearmonth          VARCHAR(8) NOT NULL,
+  d_daynuminweek       INTEGER NOT NULL,
+  d_daynuminmonth      INTEGER NOT NULL,
+  d_daynuminyear       INTEGER NOT NULL,
+  d_monthnuminyear     INTEGER NOT NULL,
+  d_weeknuminyear      INTEGER NOT NULL,
+  d_sellingseason      VARCHAR(13) NOT NULL,
+  d_lastdayinweekfl    VARCHAR(1) NOT NULL,
+  d_lastdayinmonthfl   VARCHAR(1) NOT NULL,
+  d_holidayfl          VARCHAR(1) NOT NULL,
+  d_weekdayfl          VARCHAR(1) NOT NULL
+);
+CREATE TABLE lineorder 
+(
+  lo_orderkey          INTEGER NOT NULL,
+  lo_linenumber        INTEGER NOT NULL,
+  lo_custkey           INTEGER NOT NULL,
+  lo_partkey           INTEGER NOT NULL,
+  lo_suppkey           INTEGER NOT NULL,
+  lo_orderdate         INTEGER NOT NULL,
+  lo_orderpriority     VARCHAR(15) NOT NULL,
+  lo_shippriority      VARCHAR(1) NOT NULL,
+  lo_quantity          INTEGER NOT NULL,
+  lo_extendedprice     INTEGER NOT NULL,
+  lo_ordertotalprice   INTEGER NOT NULL,
+  lo_discount          INTEGER NOT NULL,
+  lo_revenue           INTEGER NOT NULL,
+  lo_supplycost        INTEGER NOT NULL,
+  lo_tax               INTEGER NOT NULL,
+  lo_commitdate        INTEGER NOT NULL,
+  lo_shipmode          VARCHAR(10) NOT NULL
+);
+
+[
+  {
+    "RawStmt": {
+      "stmt": {
+        "CreateStmt": {
+          "relation": {
+            "relname": "part",
+            "inh": true,
+            "relpersistence": "p",
+            "location": 13
+          },
+          "tableElts": [
+            {
+              "ColumnDef": {
+                "colname": "p_partkey",
+                "typeName": {
+                  "names": [
+                    {
+                      "String": {
+                        "str": "pg_catalog"
+                      }
+                    },
+                    {
+                      "String": {
+                        "str": "int4"
+                      }
+                    }
+                  ],
+                  "typemod": -1,
+                  "location": 37
+                },
+                "is_local": true,
+                "constraints": [
+                  {
+                    "Constraint": {
+                      "contype": "CONSTR_NOTNULL",
+                      "location": 45
+                    }
+                  }
+                ],
+                "location": 23
+              }
+            },
+            {
+              "ColumnDef": {
+                "colname": "p_name",
+                "typeName": {
+                  "names": [
+                    {
+                      "String": {
+                        "str": "pg_catalog"
+                      }
+                    },
+                    {
+                      "String": {
+                        "str": "varchar"
+                      }
+                    }
+                  ],
+                  "typmods": [
+                    {
+                      "A_Const": {
+                        "val": {
+                          "Integer": {
+                            "ival": 22
+                          }
+                        },
+                        "location": 79
+                      }
+                    }
+                  ],
+                  "typemod": -1,
+                  "location": 71
+                },
+                "is_local": true,
+                "constraints": [
+                  {
+                    "Constraint": {
+                      "contype": "CONSTR_NOTNULL",
+                      "location": 83
+                    }
+                  }
+                ],
+                "location": 57
+              }
+            },
+            {
+              "ColumnDef": {
+                "colname": "p_mfgr",
+                "typeName": {
+                  "names": [
+                    {
+                      "String": {
+                        "str": "pg_catalog"
+                      }
+                    },
+                    {
+                      "String": {
+                        "str": "varchar"
+                      }
+                    }
+                  ],
+                  "typmods": [
+                    {
+                      "A_Const": {
+                        "val": {
+                          "Integer": {
+                            "ival": 6
+                          }
+                        },
+                        "location": 117
+                      }
+                    }
+                  ],
+                  "typemod": -1,
+                  "location": 109
+                },
+                "is_local": true,
+                "location": 95
+              }
+            },
+            {
+              "ColumnDef": {
+                "colname": "p_category",
+                "typeName": {
+                  "names": [
+                    {
+                      "String": {
+                        "str": "pg_catalog"
+                      }
+                    },
+                    {
+                      "String": {
+                        "str": "varchar"
+                      }
+                    }
+                  ],
+                  "typmods": [
+                    {
+                      "A_Const": {
+                        "val": {
+                          "Integer": {
+                            "ival": 7
+                          }
+                        },
+                        "location": 145
+                      }
+                    }
+                  ],
+                  "typemod": -1,
+                  "location": 137
+                },
+                "is_local": true,
+                "constraints": [
+                  {
+                    "Constraint": {
+                      "contype": "CONSTR_NOTNULL",
+                      "location": 148
+                    }
+                  }
+                ],
+                "location": 123
+              }
+            },
+            {
+              "ColumnDef": {
+                "colname": "p_brand1",
+                "typeName": {
+                  "names": [
+                    {
+                      "String": {
+                        "str": "pg_catalog"
+                      }
+                    },
+                    {
+                      "String": {
+                        "str": "varchar"
+                      }
+                    }
+                  ],
+                  "typmods": [
+                    {
+                      "A_Const": {
+                        "val": {
+                          "Integer": {
+                            "ival": 9
+                          }
+                        },
+                        "location": 182
+                      }
+                    }
+                  ],
+                  "typemod": -1,
+                  "location": 174
+                },
+                "is_local": true,
+                "constraints": [
+                  {
+                    "Constraint": {
+                      "contype": "CONSTR_NOTNULL",
+                      "location": 185
+                    }
+                  }
+                ],
+                "location": 160
+              }
+            },
+            {
+              "ColumnDef": {
+                "colname": "p_color",
+                "typeName": {
+                  "names": [
+                    {
+                      "String": {
+                        "str": "pg_catalog"
+                      }
+                    },
+                    {
+                      "String": {
+                        "str": "varchar"
+                      }
+                    }
+                  ],
+                  "typmods": [
+                    {
+                      "A_Const": {
+                        "val": {
+                          "Integer": {
+                            "ival": 11
+                          }
+                        },
+                        "location": 219
+                      }
+                    }
+                  ],
+                  "typemod": -1,
+                  "location": 211
+                },
+                "is_local": true,
+                "constraints": [
+                  {
+                    "Constraint": {
+                      "contype": "CONSTR_NOTNULL",
+                      "location": 223
+                    }
+                  }
+                ],
+                "location": 197
+              }
+            },
+            {
+              "ColumnDef": {
+                "colname": "p_type",
+                "typeName": {
+                  "names": [
+                    {
+                      "String": {
+                        "str": "pg_catalog"
+                      }
+                    },
+                    {
+                      "String": {
+                        "str": "varchar"
+                      }
+                    }
+                  ],
+                  "typmods": [
+                    {
+                      "A_Const": {
+                        "val": {
+                          "Integer": {
+                            "ival": 25
+                          }
+                        },
+                        "location": 257
+                      }
+                    }
+                  ],
+                  "typemod": -1,
+                  "location": 249
+                },
+                "is_local": true,
+                "constraints": [
+                  {
+                    "Constraint": {
+                      "contype": "CONSTR_NOTNULL",
+                      "location": 261
+                    }
+                  }
+                ],
+                "location": 235
+              }
+            },
+            {
+              "ColumnDef": {
+                "colname": "p_size",
+                "typeName": {
+                  "names": [
+                    {
+                      "String": {
+                        "str": "pg_catalog"
+                      }
+                    },
+                    {
+                      "String": {
+                        "str": "int4"
+                      }
+                    }
+                  ],
+                  "typemod": -1,
+                  "location": 287
+                },
+                "is_local": true,
+                "constraints": [
+                  {
+                    "Constraint": {
+                      "contype": "CONSTR_NOTNULL",
+                      "location": 295
+                    }
+                  }
+                ],
+                "location": 273
+              }
+            },
+            {
+              "ColumnDef": {
+                "colname": "p_container",
+                "typeName": {
+                  "names": [
+                    {
+                      "String": {
+                        "str": "pg_catalog"
+                      }
+                    },
+                    {
+                      "String": {
+                        "str": "varchar"
+                      }
+                    }
+                  ],
+                  "typmods": [
+                    {
+                      "A_Const": {
+                        "val": {
+                          "Integer": {
+                            "ival": 10
+                          }
+                        },
+                        "location": 329
+                      }
+                    }
+                  ],
+                  "typemod": -1,
+                  "location": 321
+                },
+                "is_local": true,
+                "constraints": [
+                  {
+                    "Constraint": {
+                      "contype": "CONSTR_NOTNULL",
+                      "location": 333
+                    }
+                  }
+                ],
+                "location": 307
+              }
+            }
+          ],
+          "oncommit": "ONCOMMIT_NOOP"
+        }
+      },
+      "stmt_len": 343,
+      "stmt_location": 0
+    }
+  },
+  {
+    "RawStmt": {
+      "stmt": {
+        "CreateStmt": {
+          "relation": {
+            "relname": "supplier",
+            "inh": true,
+            "relpersistence": "p",
+            "location": 359
+          },
+          "tableElts": [
+            {
+              "ColumnDef": {
+                "colname": "s_suppkey",
+                "typeName": {
+                  "names": [
+                    {
+                      "String": {
+                        "str": "pg_catalog"
+                      }
+                    },
+                    {
+                      "String": {
+                        "str": "int4"
+                      }
+                    }
+                  ],
+                  "typemod": -1,
+                  "location": 385
+                },
+                "is_local": true,
+                "constraints": [
+                  {
+                    "Constraint": {
+                      "contype": "CONSTR_NOTNULL",
+                      "location": 393
+                    }
+                  }
+                ],
+                "location": 373
+              }
+            },
+            {
+              "ColumnDef": {
+                "colname": "s_name",
+                "typeName": {
+                  "names": [
+                    {
+                      "String": {
+                        "str": "pg_catalog"
+                      }
+                    },
+                    {
+                      "String": {
+                        "str": "varchar"
+                      }
+                    }
+                  ],
+                  "typmods": [
+                    {
+                      "A_Const": {
+                        "val": {
+                          "Integer": {
+                            "ival": 25
+                          }
+                        },
+                        "location": 425
+                      }
+                    }
+                  ],
+                  "typemod": -1,
+                  "location": 417
+                },
+                "is_local": true,
+                "constraints": [
+                  {
+                    "Constraint": {
+                      "contype": "CONSTR_NOTNULL",
+                      "location": 429
+                    }
+                  }
+                ],
+                "location": 405
+              }
+            },
+            {
+              "ColumnDef": {
+                "colname": "s_address",
+                "typeName": {
+                  "names": [
+                    {
+                      "String": {
+                        "str": "pg_catalog"
+                      }
+                    },
+                    {
+                      "String": {
+                        "str": "varchar"
+                      }
+                    }
+                  ],
+                  "typmods": [
+                    {
+                      "A_Const": {
+                        "val": {
+                          "Integer": {
+                            "ival": 25
+                          }
+                        },
+                        "location": 461
+                      }
+                    }
+                  ],
+                  "typemod": -1,
+                  "location": 453
+                },
+                "is_local": true,
+                "constraints": [
+                  {
+                    "Constraint": {
+                      "contype": "CONSTR_NOTNULL",
+                      "location": 465
+                    }
+                  }
+                ],
+                "location": 441
+              }
+            },
+            {
+              "ColumnDef": {
+                "colname": "s_city",
+                "typeName": {
+                  "names": [
+                    {
+                      "String": {
+                        "str": "pg_catalog"
+                      }
+                    },
+                    {
+                      "String": {
+                        "str": "varchar"
+                      }
+                    }
+                  ],
+                  "typmods": [
+                    {
+                      "A_Const": {
+                        "val": {
+                          "Integer": {
+                            "ival": 10
+                          }
+                        },
+                        "location": 497
+                      }
+                    }
+                  ],
+                  "typemod": -1,
+                  "location": 489
+                },
+                "is_local": true,
+                "constraints": [
+                  {
+                    "Constraint": {
+                      "contype": "CONSTR_NOTNULL",
+                      "location": 501
+                    }
+                  }
+                ],
+                "location": 477
+              }
+            },
+            {
+              "ColumnDef": {
+                "colname": "s_nation",
+                "typeName": {
+                  "names": [
+                    {
+                      "String": {
+                        "str": "pg_catalog"
+                      }
+                    },
+                    {
+                      "String": {
+                        "str": "varchar"
+                      }
+                    }
+                  ],
+                  "typmods": [
+                    {
+                      "A_Const": {
+                        "val": {
+                          "Integer": {
+                            "ival": 15
+                          }
+                        },
+                        "location": 533
+                      }
+                    }
+                  ],
+                  "typemod": -1,
+                  "location": 525
+                },
+                "is_local": true,
+                "constraints": [
+                  {
+                    "Constraint": {
+                      "contype": "CONSTR_NOTNULL",
+                      "location": 537
+                    }
+                  }
+                ],
+                "location": 513
+              }
+            },
+            {
+              "ColumnDef": {
+                "colname": "s_region",
+                "typeName": {
+                  "names": [
+                    {
+                      "String": {
+                        "str": "pg_catalog"
+                      }
+                    },
+                    {
+                      "String": {
+                        "str": "varchar"
+                      }
+                    }
+                  ],
+                  "typmods": [
+                    {
+                      "A_Const": {
+                        "val": {
+                          "Integer": {
+                            "ival": 12
+                          }
+                        },
+                        "location": 569
+                      }
+                    }
+                  ],
+                  "typemod": -1,
+                  "location": 561
+                },
+                "is_local": true,
+                "constraints": [
+                  {
+                    "Constraint": {
+                      "contype": "CONSTR_NOTNULL",
+                      "location": 573
+                    }
+                  }
+                ],
+                "location": 549
+              }
+            },
+            {
+              "ColumnDef": {
+                "colname": "s_phone",
+                "typeName": {
+                  "names": [
+                    {
+                      "String": {
+                        "str": "pg_catalog"
+                      }
+                    },
+                    {
+                      "String": {
+                        "str": "varchar"
+                      }
+                    }
+                  ],
+                  "typmods": [
+                    {
+                      "A_Const": {
+                        "val": {
+                          "Integer": {
+                            "ival": 15
+                          }
+                        },
+                        "location": 605
+                      }
+                    }
+                  ],
+                  "typemod": -1,
+                  "location": 597
+                },
+                "is_local": true,
+                "constraints": [
+                  {
+                    "Constraint": {
+                      "contype": "CONSTR_NOTNULL",
+                      "location": 609
+                    }
+                  }
+                ],
+                "location": 585
+              }
+            }
+          ],
+          "oncommit": "ONCOMMIT_NOOP"
+        }
+      },
+      "stmt_len": 275,
+      "stmt_location": 344
+    }
+  },
+  {
+    "RawStmt": {
+      "stmt": {
+        "CreateStmt": {
+          "relation": {
+            "relname": "customer",
+            "inh": true,
+            "relpersistence": "p",
+            "location": 635
+          },
+          "tableElts": [
+            {
+              "ColumnDef": {
+                "colname": "c_custkey",
+                "typeName": {
+                  "names": [
+                    {
+                      "String": {
+                        "str": "pg_catalog"
+                      }
+                    },
+                    {
+                      "String": {
+                        "str": "int4"
+                      }
+                    }
+                  ],
+                  "typemod": -1,
+                  "location": 664
+                },
+                "is_local": true,
+                "constraints": [
+                  {
+                    "Constraint": {
+                      "contype": "CONSTR_NOTNULL",
+                      "location": 672
+                    }
+                  }
+                ],
+                "location": 649
+              }
+            },
+            {
+              "ColumnDef": {
+                "colname": "c_name",
+                "typeName": {
+                  "names": [
+                    {
+                      "String": {
+                        "str": "pg_catalog"
+                      }
+                    },
+                    {
+                      "String": {
+                        "str": "varchar"
+                      }
+                    }
+                  ],
+                  "typmods": [
+                    {
+                      "A_Const": {
+                        "val": {
+                          "Integer": {
+                            "ival": 25
+                          }
+                        },
+                        "location": 707
+                      }
+                    }
+                  ],
+                  "typemod": -1,
+                  "location": 699
+                },
+                "is_local": true,
+                "constraints": [
+                  {
+                    "Constraint": {
+                      "contype": "CONSTR_NOTNULL",
+                      "location": 711
+                    }
+                  }
+                ],
+                "location": 684
+              }
+            },
+            {
+              "ColumnDef": {
+                "colname": "c_address",
+                "typeName": {
+                  "names": [
+                    {
+                      "String": {
+                        "str": "pg_catalog"
+                      }
+                    },
+                    {
+                      "String": {
+                        "str": "varchar"
+                      }
+                    }
+                  ],
+                  "typmods": [
+                    {
+                      "A_Const": {
+                        "val": {
+                          "Integer": {
+                            "ival": 25
+                          }
+                        },
+                        "location": 746
+                      }
+                    }
+                  ],
+                  "typemod": -1,
+                  "location": 738
+                },
+                "is_local": true,
+                "constraints": [
+                  {
+                    "Constraint": {
+                      "contype": "CONSTR_NOTNULL",
+                      "location": 750
+                    }
+                  }
+                ],
+                "location": 723
+              }
+            },
+            {
+              "ColumnDef": {
+                "colname": "c_city",
+                "typeName": {
+                  "names": [
+                    {
+                      "String": {
+                        "str": "pg_catalog"
+                      }
+                    },
+                    {
+                      "String": {
+                        "str": "varchar"
+                      }
+                    }
+                  ],
+                  "typmods": [
+                    {
+                      "A_Const": {
+                        "val": {
+                          "Integer": {
+                            "ival": 10
+                          }
+                        },
+                        "location": 785
+                      }
+                    }
+                  ],
+                  "typemod": -1,
+                  "location": 777
+                },
+                "is_local": true,
+                "constraints": [
+                  {
+                    "Constraint": {
+                      "contype": "CONSTR_NOTNULL",
+                      "location": 789
+                    }
+                  }
+                ],
+                "location": 762
+              }
+            },
+            {
+              "ColumnDef": {
+                "colname": "c_nation",
+                "typeName": {
+                  "names": [
+                    {
+                      "String": {
+                        "str": "pg_catalog"
+                      }
+                    },
+                    {
+                      "String": {
+                        "str": "varchar"
+                      }
+                    }
+                  ],
+                  "typmods": [
+                    {
+                      "A_Const": {
+                        "val": {
+                          "Integer": {
+                            "ival": 15
+                          }
+                        },
+                        "location": 824
+                      }
+                    }
+                  ],
+                  "typemod": -1,
+                  "location": 816
+                },
+                "is_local": true,
+                "constraints": [
+                  {
+                    "Constraint": {
+                      "contype": "CONSTR_NOTNULL",
+                      "location": 828
+                    }
+                  }
+                ],
+                "location": 801
+              }
+            },
+            {
+              "ColumnDef": {
+                "colname": "c_region",
+                "typeName": {
+                  "names": [
+                    {
+                      "String": {
+                        "str": "pg_catalog"
+                      }
+                    },
+                    {
+                      "String": {
+                        "str": "varchar"
+                      }
+                    }
+                  ],
+                  "typmods": [
+                    {
+                      "A_Const": {
+                        "val": {
+                          "Integer": {
+                            "ival": 12
+                          }
+                        },
+                        "location": 863
+                      }
+                    }
+                  ],
+                  "typemod": -1,
+                  "location": 855
+                },
+                "is_local": true,
+                "constraints": [
+                  {
+                    "Constraint": {
+                      "contype": "CONSTR_NOTNULL",
+                      "location": 867
+                    }
+                  }
+                ],
+                "location": 840
+              }
+            },
+            {
+              "ColumnDef": {
+                "colname": "c_phone",
+                "typeName": {
+                  "names": [
+                    {
+                      "String": {
+                        "str": "pg_catalog"
+                      }
+                    },
+                    {
+                      "String": {
+                        "str": "varchar"
+                      }
+                    }
+                  ],
+                  "typmods": [
+                    {
+                      "A_Const": {
+                        "val": {
+                          "Integer": {
+                            "ival": 15
+                          }
+                        },
+                        "location": 902
+                      }
+                    }
+                  ],
+                  "typemod": -1,
+                  "location": 894
+                },
+                "is_local": true,
+                "constraints": [
+                  {
+                    "Constraint": {
+                      "contype": "CONSTR_NOTNULL",
+                      "location": 906
+                    }
+                  }
+                ],
+                "location": 879
+              }
+            },
+            {
+              "ColumnDef": {
+                "colname": "c_mktsegment",
+                "typeName": {
+                  "names": [
+                    {
+                      "String": {
+                        "str": "pg_catalog"
+                      }
+                    },
+                    {
+                      "String": {
+                        "str": "varchar"
+                      }
+                    }
+                  ],
+                  "typmods": [
+                    {
+                      "A_Const": {
+                        "val": {
+                          "Integer": {
+                            "ival": 10
+                          }
+                        },
+                        "location": 941
+                      }
+                    }
+                  ],
+                  "typemod": -1,
+                  "location": 933
+                },
+                "is_local": true,
+                "constraints": [
+                  {
+                    "Constraint": {
+                      "contype": "CONSTR_NOTNULL",
+                      "location": 945
+                    }
+                  }
+                ],
+                "location": 918
+              }
+            }
+          ],
+          "oncommit": "ONCOMMIT_NOOP"
+        }
+      },
+      "stmt_len": 335,
+      "stmt_location": 620
+    }
+  },
+  {
+    "RawStmt": {
+      "stmt": {
+        "CreateStmt": {
+          "relation": {
+            "relname": "dwdate",
+            "inh": true,
+            "relpersistence": "p",
+            "location": 971
+          },
+          "tableElts": [
+            {
+              "ColumnDef": {
+                "colname": "d_datekey",
+                "typeName": {
+                  "names": [
+                    {
+                      "String": {
+                        "str": "pg_catalog"
+                      }
+                    },
+                    {
+                      "String": {
+                        "str": "int4"
+                      }
+                    }
+                  ],
+                  "typemod": -1,
+                  "location": 1004
+                },
+                "is_local": true,
+                "constraints": [
+                  {
+                    "Constraint": {
+                      "contype": "CONSTR_NOTNULL",
+                      "location": 1012
+                    }
+                  }
+                ],
+                "location": 983
+              }
+            },
+            {
+              "ColumnDef": {
+                "colname": "d_date",
+                "typeName": {
+                  "names": [
+                    {
+                      "String": {
+                        "str": "pg_catalog"
+                      }
+                    },
+                    {
+                      "String": {
+                        "str": "varchar"
+                      }
+                    }
+                  ],
+                  "typmods": [
+                    {
+                      "A_Const": {
+                        "val": {
+                          "Integer": {
+                            "ival": 19
+                          }
+                        },
+                        "location": 1053
+                      }
+                    }
+                  ],
+                  "typemod": -1,
+                  "location": 1045
+                },
+                "is_local": true,
+                "constraints": [
+                  {
+                    "Constraint": {
+                      "contype": "CONSTR_NOTNULL",
+                      "location": 1057
+                    }
+                  }
+                ],
+                "location": 1024
+              }
+            },
+            {
+              "ColumnDef": {
+                "colname": "d_dayofweek",
+                "typeName": {
+                  "names": [
+                    {
+                      "String": {
+                        "str": "pg_catalog"
+                      }
+                    },
+                    {
+                      "String": {
+                        "str": "varchar"
+                      }
+                    }
+                  ],
+                  "typmods": [
+                    {
+                      "A_Const": {
+                        "val": {
+                          "Integer": {
+                            "ival": 10
+                          }
+                        },
+                        "location": 1098
+                      }
+                    }
+                  ],
+                  "typemod": -1,
+                  "location": 1090
+                },
+                "is_local": true,
+                "constraints": [
+                  {
+                    "Constraint": {
+                      "contype": "CONSTR_NOTNULL",
+                      "location": 1102
+                    }
+                  }
+                ],
+                "location": 1069
+              }
+            },
+            {
+              "ColumnDef": {
+                "colname": "d_month",
+                "typeName": {
+                  "names": [
+                    {
+                      "String": {
+                        "str": "pg_catalog"
+                      }
+                    },
+                    {
+                      "String": {
+                        "str": "varchar"
+                      }
+                    }
+                  ],
+                  "typmods": [
+                    {
+                      "A_Const": {
+                        "val": {
+                          "Integer": {
+                            "ival": 10
+                          }
+                        },
+                        "location": 1143
+                      }
+                    }
+                  ],
+                  "typemod": -1,
+                  "location": 1135
+                },
+                "is_local": true,
+                "constraints": [
+                  {
+                    "Constraint": {
+                      "contype": "CONSTR_NOTNULL",
+                      "location": 1147
+                    }
+                  }
+                ],
+                "location": 1114
+              }
+            },
+            {
+              "ColumnDef": {
+                "colname": "d_year",
+                "typeName": {
+                  "names": [
+                    {
+                      "String": {
+                        "str": "pg_catalog"
+                      }
+                    },
+                    {
+                      "String": {
+                        "str": "int4"
+                      }
+                    }
+                  ],
+                  "typemod": -1,
+                  "location": 1180
+                },
+                "is_local": true,
+                "constraints": [
+                  {
+                    "Constraint": {
+                      "contype": "CONSTR_NOTNULL",
+                      "location": 1188
+                    }
+                  }
+                ],
+                "location": 1159
+              }
+            },
+            {
+              "ColumnDef": {
+                "colname": "d_yearmonthnum",
+                "typeName": {
+                  "names": [
+                    {
+                      "String": {
+                        "str": "pg_catalog"
+                      }
+                    },
+                    {
+                      "String": {
+                        "str": "int4"
+                      }
+                    }
+                  ],
+                  "typemod": -1,
+                  "location": 1221
+                },
+                "is_local": true,
+                "constraints": [
+                  {
+                    "Constraint": {
+                      "contype": "CONSTR_NOTNULL",
+                      "location": 1229
+                    }
+                  }
+                ],
+                "location": 1200
+              }
+            },
+            {
+              "ColumnDef": {
+                "colname": "d_yearmonth",
+                "typeName": {
+                  "names": [
+                    {
+                      "String": {
+                        "str": "pg_catalog"
+                      }
+                    },
+                    {
+                      "String": {
+                        "str": "varchar"
+                      }
+                    }
+                  ],
+                  "typmods": [
+                    {
+                      "A_Const": {
+                        "val": {
+                          "Integer": {
+                            "ival": 8
+                          }
+                        },
+                        "location": 1270
+                      }
+                    }
+                  ],
+                  "typemod": -1,
+                  "location": 1262
+                },
+                "is_local": true,
+                "constraints": [
+                  {
+                    "Constraint": {
+                      "contype": "CONSTR_NOTNULL",
+                      "location": 1273
+                    }
+                  }
+                ],
+                "location": 1241
+              }
+            },
+            {
+              "ColumnDef": {
+                "colname": "d_daynuminweek",
+                "typeName": {
+                  "names": [
+                    {
+                      "String": {
+                        "str": "pg_catalog"
+                      }
+                    },
+                    {
+                      "String": {
+                        "str": "int4"
+                      }
+                    }
+                  ],
+                  "typemod": -1,
+                  "location": 1306
+                },
+                "is_local": true,
+                "constraints": [
+                  {
+                    "Constraint": {
+                      "contype": "CONSTR_NOTNULL",
+                      "location": 1314
+                    }
+                  }
+                ],
+                "location": 1285
+              }
+            },
+            {
+              "ColumnDef": {
+                "colname": "d_daynuminmonth",
+                "typeName": {
+                  "names": [
+                    {
+                      "String": {
+                        "str": "pg_catalog"
+                      }
+                    },
+                    {
+                      "String": {
+                        "str": "int4"
+                      }
+                    }
+                  ],
+                  "typemod": -1,
+                  "location": 1347
+                },
+                "is_local": true,
+                "constraints": [
+                  {
+                    "Constraint": {
+                      "contype": "CONSTR_NOTNULL",
+                      "location": 1355
+                    }
+                  }
+                ],
+                "location": 1326
+              }
+            },
+            {
+              "ColumnDef": {
+                "colname": "d_daynuminyear",
+                "typeName": {
+                  "names": [
+                    {
+                      "String": {
+                        "str": "pg_catalog"
+                      }
+                    },
+                    {
+                      "String": {
+                        "str": "int4"
+                      }
+                    }
+                  ],
+                  "typemod": -1,
+                  "location": 1388
+                },
+                "is_local": true,
+                "constraints": [
+                  {
+                    "Constraint": {
+                      "contype": "CONSTR_NOTNULL",
+                      "location": 1396
+                    }
+                  }
+                ],
+                "location": 1367
+              }
+            },
+            {
+              "ColumnDef": {
+                "colname": "d_monthnuminyear",
+                "typeName": {
+                  "names": [
+                    {
+                      "String": {
+                        "str": "pg_catalog"
+                      }
+                    },
+                    {
+                      "String": {
+                        "str": "int4"
+                      }
+                    }
+                  ],
+                  "typemod": -1,
+                  "location": 1429
+                },
+                "is_local": true,
+                "constraints": [
+                  {
+                    "Constraint": {
+                      "contype": "CONSTR_NOTNULL",
+                      "location": 1437
+                    }
+                  }
+                ],
+                "location": 1408
+              }
+            },
+            {
+              "ColumnDef": {
+                "colname": "d_weeknuminyear",
+                "typeName": {
+                  "names": [
+                    {
+                      "String": {
+                        "str": "pg_catalog"
+                      }
+                    },
+                    {
+                      "String": {
+                        "str": "int4"
+                      }
+                    }
+                  ],
+                  "typemod": -1,
+                  "location": 1470
+                },
+                "is_local": true,
+                "constraints": [
+                  {
+                    "Constraint": {
+                      "contype": "CONSTR_NOTNULL",
+                      "location": 1478
+                    }
+                  }
+                ],
+                "location": 1449
+              }
+            },
+            {
+              "ColumnDef": {
+                "colname": "d_sellingseason",
+                "typeName": {
+                  "names": [
+                    {
+                      "String": {
+                        "str": "pg_catalog"
+                      }
+                    },
+                    {
+                      "String": {
+                        "str": "varchar"
+                      }
+                    }
+                  ],
+                  "typmods": [
+                    {
+                      "A_Const": {
+                        "val": {
+                          "Integer": {
+                            "ival": 13
+                          }
+                        },
+                        "location": 1519
+                      }
+                    }
+                  ],
+                  "typemod": -1,
+                  "location": 1511
+                },
+                "is_local": true,
+                "constraints": [
+                  {
+                    "Constraint": {
+                      "contype": "CONSTR_NOTNULL",
+                      "location": 1523
+                    }
+                  }
+                ],
+                "location": 1490
+              }
+            },
+            {
+              "ColumnDef": {
+                "colname": "d_lastdayinweekfl",
+                "typeName": {
+                  "names": [
+                    {
+                      "String": {
+                        "str": "pg_catalog"
+                      }
+                    },
+                    {
+                      "String": {
+                        "str": "varchar"
+                      }
+                    }
+                  ],
+                  "typmods": [
+                    {
+                      "A_Const": {
+                        "val": {
+                          "Integer": {
+                            "ival": 1
+                          }
+                        },
+                        "location": 1564
+                      }
+                    }
+                  ],
+                  "typemod": -1,
+                  "location": 1556
+                },
+                "is_local": true,
+                "constraints": [
+                  {
+                    "Constraint": {
+                      "contype": "CONSTR_NOTNULL",
+                      "location": 1567
+                    }
+                  }
+                ],
+                "location": 1535
+              }
+            },
+            {
+              "ColumnDef": {
+                "colname": "d_lastdayinmonthfl",
+                "typeName": {
+                  "names": [
+                    {
+                      "String": {
+                        "str": "pg_catalog"
+                      }
+                    },
+                    {
+                      "String": {
+                        "str": "varchar"
+                      }
+                    }
+                  ],
+                  "typmods": [
+                    {
+                      "A_Const": {
+                        "val": {
+                          "Integer": {
+                            "ival": 1
+                          }
+                        },
+                        "location": 1608
+                      }
+                    }
+                  ],
+                  "typemod": -1,
+                  "location": 1600
+                },
+                "is_local": true,
+                "constraints": [
+                  {
+                    "Constraint": {
+                      "contype": "CONSTR_NOTNULL",
+                      "location": 1611
+                    }
+                  }
+                ],
+                "location": 1579
+              }
+            },
+            {
+              "ColumnDef": {
+                "colname": "d_holidayfl",
+                "typeName": {
+                  "names": [
+                    {
+                      "String": {
+                        "str": "pg_catalog"
+                      }
+                    },
+                    {
+                      "String": {
+                        "str": "varchar"
+                      }
+                    }
+                  ],
+                  "typmods": [
+                    {
+                      "A_Const": {
+                        "val": {
+                          "Integer": {
+                            "ival": 1
+                          }
+                        },
+                        "location": 1652
+                      }
+                    }
+                  ],
+                  "typemod": -1,
+                  "location": 1644
+                },
+                "is_local": true,
+                "constraints": [
+                  {
+                    "Constraint": {
+                      "contype": "CONSTR_NOTNULL",
+                      "location": 1655
+                    }
+                  }
+                ],
+                "location": 1623
+              }
+            },
+            {
+              "ColumnDef": {
+                "colname": "d_weekdayfl",
+                "typeName": {
+                  "names": [
+                    {
+                      "String": {
+                        "str": "pg_catalog"
+                      }
+                    },
+                    {
+                      "String": {
+                        "str": "varchar"
+                      }
+                    }
+                  ],
+                  "typmods": [
+                    {
+                      "A_Const": {
+                        "val": {
+                          "Integer": {
+                            "ival": 1
+                          }
+                        },
+                        "location": 1696
+                      }
+                    }
+                  ],
+                  "typemod": -1,
+                  "location": 1688
+                },
+                "is_local": true,
+                "constraints": [
+                  {
+                    "Constraint": {
+                      "contype": "CONSTR_NOTNULL",
+                      "location": 1699
+                    }
+                  }
+                ],
+                "location": 1667
+              }
+            }
+          ],
+          "oncommit": "ONCOMMIT_NOOP"
+        }
+      },
+      "stmt_len": 753,
+      "stmt_location": 956
+    }
+  },
+  {
+    "RawStmt": {
+      "stmt": {
+        "CreateStmt": {
+          "relation": {
+            "relname": "lineorder",
+            "inh": true,
+            "relpersistence": "p",
+            "location": 1724
+          },
+          "tableElts": [
+            {
+              "ColumnDef": {
+                "colname": "lo_orderkey",
+                "typeName": {
+                  "names": [
+                    {
+                      "String": {
+                        "str": "pg_catalog"
+                      }
+                    },
+                    {
+                      "String": {
+                        "str": "int4"
+                      }
+                    }
+                  ],
+                  "typemod": -1,
+                  "location": 1760
+                },
+                "is_local": true,
+                "constraints": [
+                  {
+                    "Constraint": {
+                      "contype": "CONSTR_NOTNULL",
+                      "location": 1768
+                    }
+                  }
+                ],
+                "location": 1739
+              }
+            },
+            {
+              "ColumnDef": {
+                "colname": "lo_linenumber",
+                "typeName": {
+                  "names": [
+                    {
+                      "String": {
+                        "str": "pg_catalog"
+                      }
+                    },
+                    {
+                      "String": {
+                        "str": "int4"
+                      }
+                    }
+                  ],
+                  "typemod": -1,
+                  "location": 1801
+                },
+                "is_local": true,
+                "constraints": [
+                  {
+                    "Constraint": {
+                      "contype": "CONSTR_NOTNULL",
+                      "location": 1809
+                    }
+                  }
+                ],
+                "location": 1780
+              }
+            },
+            {
+              "ColumnDef": {
+                "colname": "lo_custkey",
+                "typeName": {
+                  "names": [
+                    {
+                      "String": {
+                        "str": "pg_catalog"
+                      }
+                    },
+                    {
+                      "String": {
+                        "str": "int4"
+                      }
+                    }
+                  ],
+                  "typemod": -1,
+                  "location": 1842
+                },
+                "is_local": true,
+                "constraints": [
+                  {
+                    "Constraint": {
+                      "contype": "CONSTR_NOTNULL",
+                      "location": 1850
+                    }
+                  }
+                ],
+                "location": 1821
+              }
+            },
+            {
+              "ColumnDef": {
+                "colname": "lo_partkey",
+                "typeName": {
+                  "names": [
+                    {
+                      "String": {
+                        "str": "pg_catalog"
+                      }
+                    },
+                    {
+                      "String": {
+                        "str": "int4"
+                      }
+                    }
+                  ],
+                  "typemod": -1,
+                  "location": 1883
+                },
+                "is_local": true,
+                "constraints": [
+                  {
+                    "Constraint": {
+                      "contype": "CONSTR_NOTNULL",
+                      "location": 1891
+                    }
+                  }
+                ],
+                "location": 1862
+              }
+            },
+            {
+              "ColumnDef": {
+                "colname": "lo_suppkey",
+                "typeName": {
+                  "names": [
+                    {
+                      "String": {
+                        "str": "pg_catalog"
+                      }
+                    },
+                    {
+                      "String": {
+                        "str": "int4"
+                      }
+                    }
+                  ],
+                  "typemod": -1,
+                  "location": 1924
+                },
+                "is_local": true,
+                "constraints": [
+                  {
+                    "Constraint": {
+                      "contype": "CONSTR_NOTNULL",
+                      "location": 1932
+                    }
+                  }
+                ],
+                "location": 1903
+              }
+            },
+            {
+              "ColumnDef": {
+                "colname": "lo_orderdate",
+                "typeName": {
+                  "names": [
+                    {
+                      "String": {
+                        "str": "pg_catalog"
+                      }
+                    },
+                    {
+                      "String": {
+                        "str": "int4"
+                      }
+                    }
+                  ],
+                  "typemod": -1,
+                  "location": 1965
+                },
+                "is_local": true,
+                "constraints": [
+                  {
+                    "Constraint": {
+                      "contype": "CONSTR_NOTNULL",
+                      "location": 1973
+                    }
+                  }
+                ],
+                "location": 1944
+              }
+            },
+            {
+              "ColumnDef": {
+                "colname": "lo_orderpriority",
+                "typeName": {
+                  "names": [
+                    {
+                      "String": {
+                        "str": "pg_catalog"
+                      }
+                    },
+                    {
+                      "String": {
+                        "str": "varchar"
+                      }
+                    }
+                  ],
+                  "typmods": [
+                    {
+                      "A_Const": {
+                        "val": {
+                          "Integer": {
+                            "ival": 15
+                          }
+                        },
+                        "location": 2014
+                      }
+                    }
+                  ],
+                  "typemod": -1,
+                  "location": 2006
+                },
+                "is_local": true,
+                "constraints": [
+                  {
+                    "Constraint": {
+                      "contype": "CONSTR_NOTNULL",
+                      "location": 2018
+                    }
+                  }
+                ],
+                "location": 1985
+              }
+            },
+            {
+              "ColumnDef": {
+                "colname": "lo_shippriority",
+                "typeName": {
+                  "names": [
+                    {
+                      "String": {
+                        "str": "pg_catalog"
+                      }
+                    },
+                    {
+                      "String": {
+                        "str": "varchar"
+                      }
+                    }
+                  ],
+                  "typmods": [
+                    {
+                      "A_Const": {
+                        "val": {
+                          "Integer": {
+                            "ival": 1
+                          }
+                        },
+                        "location": 2059
+                      }
+                    }
+                  ],
+                  "typemod": -1,
+                  "location": 2051
+                },
+                "is_local": true,
+                "constraints": [
+                  {
+                    "Constraint": {
+                      "contype": "CONSTR_NOTNULL",
+                      "location": 2062
+                    }
+                  }
+                ],
+                "location": 2030
+              }
+            },
+            {
+              "ColumnDef": {
+                "colname": "lo_quantity",
+                "typeName": {
+                  "names": [
+                    {
+                      "String": {
+                        "str": "pg_catalog"
+                      }
+                    },
+                    {
+                      "String": {
+                        "str": "int4"
+                      }
+                    }
+                  ],
+                  "typemod": -1,
+                  "location": 2095
+                },
+                "is_local": true,
+                "constraints": [
+                  {
+                    "Constraint": {
+                      "contype": "CONSTR_NOTNULL",
+                      "location": 2103
+                    }
+                  }
+                ],
+                "location": 2074
+              }
+            },
+            {
+              "ColumnDef": {
+                "colname": "lo_extendedprice",
+                "typeName": {
+                  "names": [
+                    {
+                      "String": {
+                        "str": "pg_catalog"
+                      }
+                    },
+                    {
+                      "String": {
+                        "str": "int4"
+                      }
+                    }
+                  ],
+                  "typemod": -1,
+                  "location": 2136
+                },
+                "is_local": true,
+                "constraints": [
+                  {
+                    "Constraint": {
+                      "contype": "CONSTR_NOTNULL",
+                      "location": 2144
+                    }
+                  }
+                ],
+                "location": 2115
+              }
+            },
+            {
+              "ColumnDef": {
+                "colname": "lo_ordertotalprice",
+                "typeName": {
+                  "names": [
+                    {
+                      "String": {
+                        "str": "pg_catalog"
+                      }
+                    },
+                    {
+                      "String": {
+                        "str": "int4"
+                      }
+                    }
+                  ],
+                  "typemod": -1,
+                  "location": 2177
+                },
+                "is_local": true,
+                "constraints": [
+                  {
+                    "Constraint": {
+                      "contype": "CONSTR_NOTNULL",
+                      "location": 2185
+                    }
+                  }
+                ],
+                "location": 2156
+              }
+            },
+            {
+              "ColumnDef": {
+                "colname": "lo_discount",
+                "typeName": {
+                  "names": [
+                    {
+                      "String": {
+                        "str": "pg_catalog"
+                      }
+                    },
+                    {
+                      "String": {
+                        "str": "int4"
+                      }
+                    }
+                  ],
+                  "typemod": -1,
+                  "location": 2218
+                },
+                "is_local": true,
+                "constraints": [
+                  {
+                    "Constraint": {
+                      "contype": "CONSTR_NOTNULL",
+                      "location": 2226
+                    }
+                  }
+                ],
+                "location": 2197
+              }
+            },
+            {
+              "ColumnDef": {
+                "colname": "lo_revenue",
+                "typeName": {
+                  "names": [
+                    {
+                      "String": {
+                        "str": "pg_catalog"
+                      }
+                    },
+                    {
+                      "String": {
+                        "str": "int4"
+                      }
+                    }
+                  ],
+                  "typemod": -1,
+                  "location": 2259
+                },
+                "is_local": true,
+                "constraints": [
+                  {
+                    "Constraint": {
+                      "contype": "CONSTR_NOTNULL",
+                      "location": 2267
+                    }
+                  }
+                ],
+                "location": 2238
+              }
+            },
+            {
+              "ColumnDef": {
+                "colname": "lo_supplycost",
+                "typeName": {
+                  "names": [
+                    {
+                      "String": {
+                        "str": "pg_catalog"
+                      }
+                    },
+                    {
+                      "String": {
+                        "str": "int4"
+                      }
+                    }
+                  ],
+                  "typemod": -1,
+                  "location": 2300
+                },
+                "is_local": true,
+                "constraints": [
+                  {
+                    "Constraint": {
+                      "contype": "CONSTR_NOTNULL",
+                      "location": 2308
+                    }
+                  }
+                ],
+                "location": 2279
+              }
+            },
+            {
+              "ColumnDef": {
+                "colname": "lo_tax",
+                "typeName": {
+                  "names": [
+                    {
+                      "String": {
+                        "str": "pg_catalog"
+                      }
+                    },
+                    {
+                      "String": {
+                        "str": "int4"
+                      }
+                    }
+                  ],
+                  "typemod": -1,
+                  "location": 2341
+                },
+                "is_local": true,
+                "constraints": [
+                  {
+                    "Constraint": {
+                      "contype": "CONSTR_NOTNULL",
+                      "location": 2349
+                    }
+                  }
+                ],
+                "location": 2320
+              }
+            },
+            {
+              "ColumnDef": {
+                "colname": "lo_commitdate",
+                "typeName": {
+                  "names": [
+                    {
+                      "String": {
+                        "str": "pg_catalog"
+                      }
+                    },
+                    {
+                      "String": {
+                        "str": "int4"
+                      }
+                    }
+                  ],
+                  "typemod": -1,
+                  "location": 2382
+                },
+                "is_local": true,
+                "constraints": [
+                  {
+                    "Constraint": {
+                      "contype": "CONSTR_NOTNULL",
+                      "location": 2390
+                    }
+                  }
+                ],
+                "location": 2361
+              }
+            },
+            {
+              "ColumnDef": {
+                "colname": "lo_shipmode",
+                "typeName": {
+                  "names": [
+                    {
+                      "String": {
+                        "str": "pg_catalog"
+                      }
+                    },
+                    {
+                      "String": {
+                        "str": "varchar"
+                      }
+                    }
+                  ],
+                  "typmods": [
+                    {
+                      "A_Const": {
+                        "val": {
+                          "Integer": {
+                            "ival": 10
+                          }
+                        },
+                        "location": 2431
+                      }
+                    }
+                  ],
+                  "typemod": -1,
+                  "location": 2423
+                },
+                "is_local": true,
+                "constraints": [
+                  {
+                    "Constraint": {
+                      "contype": "CONSTR_NOTNULL",
+                      "location": 2435
+                    }
+                  }
+                ],
+                "location": 2402
+              }
+            }
+          ],
+          "oncommit": "ONCOMMIT_NOOP"
+        }
+      },
+      "stmt_len": 735,
+      "stmt_location": 1710
+    }
+  }
+]

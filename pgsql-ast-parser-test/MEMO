@@ -1,0 +1,25 @@
+
+~/sql_parser_test/pkg/nearley
+
+
+
+
+~/sql_parser_test/pkg/pgsql-ast-parser
+
+npm run build
+npm run release
+
+
+~/sql_parser_test/pgsql-ast-parser-test
+
+node ./systax_test_file.js sql/test01.sql 
+
+--------------------------------------------------
+sql_parser_test/pkg/pgsql-ast-parser
+    npm run build
+sql_parser_test
+     rm -rf node_modules
+     yarn
+node ./systax_test_file.js  sql/dvdrental.sql
+
+

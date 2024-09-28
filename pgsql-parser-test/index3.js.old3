@@ -1,0 +1,272 @@
+import { parse, deparse } from "pgsql-parser";
+
+import * as util from "node:util";
+import * as fs from "node:fs/promises";
+
+let P = true;
+
+function print(str) {
+  if (P) {
+    process.stdout.write(str);
+  }
+}
+
+function print_dir(...obj) {
+  if (P) {
+    console.log(obj[0],obj[1]);
+  }
+}
+function print_dir2(...obj) {
+  if (P) {
+    console.log(obj[0],obj[1],obj[2]);
+  }
+}
+function print_json(stmts) {
+  if (P) {
+    process.stdout.write(JSON.stringify(stmts, null, 2));
+    console.log("");
+  }
+}
+
+function CreateStmt(stmt_d) {
+  for (let key in stmt_d) {
+    let ele = stmt_d[key];
+    switch (key) {
+      case "relation":
+        print("<" + key + ">\n");
+        print(" table name:"+ ele["relname"]+ "\n");
+        break;
+      case "tableElts":
+        print("<" + key + ">\n");
+        for (let i in ele) {
+          for (let key in ele[i]) {
+             switch(key) {
+                case "ColumnDef":
+                    let colname = ele[i]["ColumnDef"]["colname"];
+                    let typeName_a = ele[i]["ColumnDef"]["typeName"]["names"];
+                    print(" [" + i + "]\n");
+                    print("  " + key +"\n");
+                    print("   colname:" + colname + "\n");
+                    print("      type:");
+                    for (let i in typeName_a) {
+                      print(typeName_a[i]["String"]["str"] + ", ");
+                    }
+                    print("\n");
+                    break;
+                case "Constraint":
+                    let contype = ele[i]["Constraint"]["contype"];
+                    let pktable_schemaname = null;
+                    let pktable_relname = null;
+                    if (ele[i]["Constraint"]["pktable"]) {
+                     pktable_schemaname = ele[i]["Constraint"]["pktable"]["schemaname"];
+                     pktable_relname    = ele[i]["Constraint"]["pktable"]["relname"];
+		    }
+
+                    let fk_attrs = null;
+                    if (ele[i]["Constraint"]["fk_attrs"]) {
+                     //fk_attrs = ele[i]["Constraint"]["fk_attrs"][0]["String"]["str"];
+                     fk_attrs = ele[i]["Constraint"]["fk_attrs"];
+		    }
+                    let pk_attrs = null;
+                    if (ele[i]["Constraint"]["pk_attrs"]) {
+                     //pk_attrs = ele[i]["Constraint"]["pk_attrs"][0]["String"]["str"];
+                     pk_attrs = ele[i]["Constraint"]["pk_attrs"];
+		    }
+
+                    print(" [" + i + "]\n");
+                    print("  " + key +"\n");
+                    print("   contype:" + contype + "\n");
+                    print("   pktable schemaname :" + pktable_schemaname + "\n");
+                    print("   pktable relname    :" +  pktable_relname + "\n");
+                    //print("   fk_attrs:" + fk_attrs + "\n");
+                    //print("   pk_attrs:" + pk_attrs + "\n");
+	            if (P) {
+                        //console.log("   fk_attrs:" , fk_attrs );
+                        //console.log("   pk_attrs:" , pk_attrs );
+                        print_dir("   fk_attrs:" , fk_attrs );
+                        print_dir("   pk_attrs:" , pk_attrs );
+
+		    }
+                    break;
+                default:
+                    console.log("create table unKnown:",key);
+             }
+          }
+        }
+        break;
+      case "oncommit":
+        print("<" + key + ">\n");
+        print(" "+ ele +"\n");
+        break;
+      default:
+        console.log("*** Not *** ", key);
+    }
+  }
+}
+function AlterTableStmt(stmt_d) {
+  for (let key in stmt_d) {
+    let ele = stmt_d[key];
+    switch (key) {
+      case "relation":
+        print("<" + key + ">\n");
+        print(" table name:"+ ele["relname"]+ "\n");
+        break;
+      case "cmds":
+        print("<" + key + ">\n");
+        for (let i in ele) {
+          let cmd = ele[i]["AlterTableCmd"]
+          let constraint = cmd["def"]["Constraint"];
+          print(" contype:"+constraint["contype"]+"\n");
+          print(" pktable:"+constraint["pktable"]["relname"]+"\n");
+          print(" fk_attrs:"+constraint["fk_attrs"][0]["String"]["str"]+"\n");
+          print(" pk_attrs:"+constraint["pk_attrs"][0]["String"]["str"]+"\n");
+        }
+        break;
+      case "relkind":
+        print("<" + key + ">\n");
+        print(" "+ ele +"\n");
+        break;
+      default:
+        console.log("*** Not *** ", key);
+    }
+  }
+}
+
+function stmt_print(array) {
+  for (let i in array) {
+    for (let key in array[i]["RawStmt"]["stmt"]) {
+      let stmt_d = array[i]["RawStmt"]["stmt"][key];
+      console.log("-------------------------");
+      switch (key) {
+        case "CreateStmt":
+          console.log(key);
+          CreateStmt(stmt_d);
+          break;
+        case "AlterTableStmt":
+          console.log(key);
+          AlterTableStmt(stmt_d);
+          break;
+        default:
+          console.log("*** Not *** ", key);
+      }
+    }
+  }
+}
+
+function stmt_print__(array) {
+  for (let i in array) {
+    console.log(array[i]["RawStmt"]["stmt"]);
+  }
+}
+function walk(element, indent) {
+  let base = "    ";
+  let spc = base.repeat(indent);
+
+  //console.log(typeof(element));
+  if (typeof element == "object") {
+    if (Array.isArray(element)) {
+      console.log(spc, "*** Array ***");
+      console.log(spc, "[");
+      for (let key in element) {
+        //console.log(spc,element[key]);
+        walk(element[key], indent + 1);
+      }
+      console.log(spc, "]");
+    } else {
+      console.log(spc, "*** Dict ***");
+      console.log(spc, "{");
+      for (let key in element) {
+        //console.log(spc,key,":",element[key]);
+        console.log(spc, " ", key, ":");
+        walk(element[key], indent + 1);
+      }
+      console.log(spc, "}");
+    }
+    //for (let key in element) {
+    //  console.log(element[key]);
+    //  walk(element[key]);
+    //}
+  } else if (typeof element == "string") {
+    console.log(spc, "*** string:", element);
+  } else if (typeof element == "number") {
+    console.log(spc, "*** number:", element);
+  } else if (typeof element == "boolean") {
+    console.log(spc, "*** boolean:", element);
+  } else {
+    console.log("$$$", typeof element);
+  }
+}
+/*
+function stmt(stmt) {
+  //console.log(stmt)
+  if (stmt["CreateStmt"]) {
+    create(stmt["CreateStmt"]);
+  } else {
+    console.log("stmt not case");
+  }
+}
+*/
+
+const { positionals } = util.parseArgs({
+  allowPositionals: true,
+});
+
+if (positionals.length == 0) {
+  console.log("arg: <filepath>");
+  console.log("     <filepath> np");
+  console.log("     <filepath> json");
+  console.log("     <filepath> walk");
+  process.exit(1);
+}
+
+let filePath = null;
+let mode = "stmt";
+
+if (positionals.length == 1) {
+    filePath = positionals[0];
+} else if (positionals.length == 2) {
+    if (positionals[1] == "np") {
+	    P = false;
+    } else if (positionals[1] == "json") {
+	    mode = "json"
+    } else if (positionals[1] == "walk") {
+	    mode = "walk"
+    }
+    filePath = positionals[0];
+}
+
+fs.readFile(filePath, { encoding: "utf8" })
+  .then((file) => {
+    //console.log(file);
+    const stmts = parse(file);
+/*
+    console.log("json ============================");
+    //print_json(stmts);
+    console.log("walk ============================");
+    //walk(stmts, 0);
+    console.log("stmt ============================");
+    stmt_print(stmts);
+*/
+   switch(mode) {
+          case "json":
+                  console.log("json ============================");
+                  print_json(stmts);
+                  break
+          case "walk":
+                  console.log("walk ============================");
+                  walk(stmts, 0);
+                  break
+          case "stmt":
+                  console.log("stms ============================");
+                  stmt_print(stmts);
+                  break
+          default:
+                   console.log("unknown mode:",mode);
+   }
+
+  })
+  .catch((err) => {
+    console.error(err.message);
+    process.exit(1);
+  });
+

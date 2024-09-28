@@ -1,0 +1,29 @@
+** REF *************************************
+https://www.npmjs.com/package/pgsql-parser
+https://github.com/launchql/pgsql-parser
+********************************************
+
+# node -v
+v20.16.0
+# npm -v
+10.8.1
+
+
+# npm init
+
+# npm install pgsql-parser
+
+# vi package.json
+   "main": "index.js",
+  "type": "module",
+
+
+# vi ./index.js
+
+# node ./index.js
+
+
+# npx prettier  index2.js  --write
+
+# node ./index3.js   ../***.sql
+

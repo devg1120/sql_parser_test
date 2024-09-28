@@ -1,0 +1,17 @@
+
+https://dolphilia.com/translation/pegjs/
+
+
+
+node ./test05.js ./sql/db1.sql
+node ./test05.js ./sql/db2.sql
+node ./test05.js ./sql/db3.sql
+
+node ./test05.js ./sql/test01.sql
+node ./test05.js ./sql/test02.sql
+node ./test05.js ./sql/test03.sql
+
+node ./test05.js ./sql/dvdrental_gs.sql
+
+node  systax_test_file.js  ./sql/test01.sql 
+node  systax_test_dir.js  ./sql

@@ -1,0 +1,6 @@
+# macc build error
+
+<ERR_OSSL_EVP_UNSUPPORTED>
+
+NODE_OPTIONS=--openssl-legacy-provider npm run build
+
