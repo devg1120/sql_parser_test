@@ -1,2 +1,6 @@
 https://github.com/pganalyze/pg-query-emscripten
 
+node ./index4.js ./sql/dvdrental.sql
+
+
+
