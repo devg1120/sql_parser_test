@@ -1,0 +1,96 @@
+//import { parse, deparse } from "pgsql-parser";
+import Module from "pg-query-emscripten";
+
+import * as util from "node:util";
+import * as fs from "node:fs/promises";
+
+
+const { positionals } = util.parseArgs({
+  allowPositionals: true,
+});
+
+if (positionals.length == 0) {
+  console.log("arg: <filepath>");
+  console.log("     <filepath> <mode> <PTN:PTN:...>");
+  console.log("                     mode: np json walk stmt");
+  console.log("    node ./index4.js sql/dvdrental.sql np CreateTrigStmt:CreateStmt");
+  process.exit(1);
+}
+
+let filePath = null;
+let mode = "stmt";
+let targets = "all";
+
+if (positionals.length == 1) {
+    filePath = positionals[0];
+} else if (positionals.length == 2) {
+    if (positionals[1] == "np") {
+	    P = false;
+    } else if (positionals[1] == "json") {
+	    mode = "json"
+    } else if (positionals[1] == "walk") {
+	    mode = "walk"
+    }
+    filePath = positionals[0];
+} else if (positionals.length == 3) {
+    if (positionals[1] == "np") {
+	    P = false;
+    } else if (positionals[1] == "json") {
+	    mode = "json"
+    } else if (positionals[1] == "walk") {
+	    mode = "walk"
+    }
+    filePath = positionals[0];
+    targets = positionals[2];
+}
+
+//********************************************
+let pgQuery;
+
+(async () => {
+  pgQuery = await new Module();
+})();
+//********************************************
+
+fs.readFile(filePath, { encoding: "utf8" })
+  .then((file) => {
+
+   //********************************************
+   const result = pgQuery.parse(file);
+   let stmts = result["parse_tree"]["stmts"]
+   let stderr_buffer = result["stderr_buffer"]
+   let error = result["error"]
+   let target_stmts = stmts;
+   //********************************************
+
+
+   let filters = ["CreateStmt", "Trig"];
+
+   if ( targets != "all") {
+       filters = targets.split(':')
+       target_stmts = stmt_filter(stmts, filters) 
+   }
+
+   switch(mode) {
+          case "json":
+                  console.log("json ============================");
+                  print_json(target_stmts);
+                  break
+          case "walk":
+                  console.log("walk ============================");
+                  walk(target_stmts, 0);
+                  break
+          case "stmt":
+                  console.log("stms ============================");
+                  stmt_print(target_stmts);
+                  break
+          default:
+                   console.log("unknown mode:",mode);
+   }
+
+  })
+  .catch((err) => {
+    console.error(err.message);
+    process.exit(1);
+  });
+
