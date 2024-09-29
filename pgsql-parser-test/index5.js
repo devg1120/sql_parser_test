@@ -1,5 +1,5 @@
-//import { parse, deparse } from "pgsql-parser";
-import Module from "pg-query-emscripten";
+import { parse, deparse } from "pgsql-parser";
+//import Module from "pg-query-emscripten";
 
 import * as util from "node:util";
 import * as fs from "node:fs/promises";
@@ -210,6 +210,10 @@ function AlterTableStmt(stmt_d) {
         print("<" + key + ">\n");
         print(" "+ ele +"\n");
         break;
+      case "objtype":                       //  for wasm
+        print("<" + key + ">\n");
+        print(" "+ ele +"\n");
+        break;
       default:
         console.log("*** Not *** ", key);
     }
@@ -379,31 +383,31 @@ if (positionals.length == 1) {
     targets = positionals[2];
 }
 
-//********************************************
-let pgQuery;
 
-(async () => {
-  pgQuery = await new Module();
-})();
-//********************************************
+
+
+
+
+
+
 
 fs.readFile(filePath, { encoding: "utf8" })
   .then((file) => {
 
    //********************************************
-   const result = pgQuery.parse(file);
-   let stmts = result["parse_tree"]["stmts"]
-   let stderr_buffer = result["stderr_buffer"]
-   let error = result["error"]
-   let target_stmts = stmts;
+   const stmts = parse(file);
+   let stmts2 = [];
+   for (let i in stmts) {
+      stmts2.push(stmts[i]["RawStmt"] )
+   }
+   let target_stmts = stmts2;
    //********************************************
-
 
    let filters = ["CreateStmt", "Trig"];
 
    if ( targets != "all") {
        filters = targets.split(':')
-       target_stmts = stmt_filter(stmts, filters) 
+       target_stmts = stmt_filter(stmts2, filters) 
    }
 
    switch(mode) {

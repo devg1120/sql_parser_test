@@ -210,6 +210,10 @@ function AlterTableStmt(stmt_d) {
         print("<" + key + ">\n");
         print(" "+ ele +"\n");
         break;
+      case "objtype":                       //  for wasm
+        print("<" + key + ">\n");
+        print(" "+ ele +"\n");
+        break;
       default:
         console.log("*** Not *** ", key);
     }
